@@ -7,6 +7,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Dan Iverson", "Kyle Benson"]
   s.email       = 'dan@psadmin.io'
   s.files       = ["lib/changeassistant_plus.rb"]
+  s.executables << 'psca'
   s.homepage    =
     'http://rubygems.org/gems/changeassistant_plus'
   s.license       = 'MIT'
