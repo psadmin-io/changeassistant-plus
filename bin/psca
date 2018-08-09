@@ -1,3 +1,75 @@
 #!/usr/bin/env ruby
 
 require 'changeassistant_plus'
+
+# options
+opts_a, *opts_p = ARGV || ["help", ""]
+
+actions = opts_a.split(',')
+
+# Load default and user configuration here
+# .pscarc and psca.d/
+
+# setup environment
+PS_PSA_CONF = ENV['PS_PSA_CONF'] || "#{ENV['HOME']}/.pscarc"
+if File.exists?(PS_PSA_CONF) then
+    File.readlines(PS_PSA_CONF).each do |line|
+        if line.start_with? "#" then
+            next 
+        else
+            key, value = line.split "="
+            ENV[key] = value.strip
+        end
+    end
+end
+
+# constants
+OS_CONST = os
+PS_RUNTIME_USER = ENV['PS_RUNTIME_USER'] || "psadm2"
+CA_PATH = "#{OS_CONST}" == "linux" ? "#{env('CA_BASE')}" : "cmd /c #{env('CA_BASE')}"
+
+# validation
+# check runtime user
+if "#{OS_CONST}" == "linux" then
+    if !system("id #{PS_RUNTIME_USER} &> /dev/null") then
+	      puts "#{PS_RUNTIME_USER} is not valid. Please correct PS_RUNTIME_USER, then try again."
+        exit
+    end
+else
+    # windows - TODO
+end
+
+# process
+actions.each do |a|
+
+end
+
+# Defaults to set:
+# Application Names (and shortcuts)
+# Products (all? list? or query DB to gather correct info?)
+# SQL Client
+# Tools Client
+# Stage/Output/Download Dirs
+# Username/Passwords (offer local encryption?)
+
+# Parse options and call the functions
+# ENVIMP = Import Environment
+# ENVCREATE = Create Environment
+# ENVUPDATE = Update Environment
+# EMFVAL = Validate EMF Settings
+# OPTIONS = Set General Options
+# UPLDTGT = Upload Target database to PUM Source
+# CPAPPLY = Apply Previously Created (non-PRP) Change Package
+# PRPAPPLY = Apply PRP
+# PTPAPPLY = Apply a patch to your Current PeopleTools Release
+# PTUAPPLY = Upgrade to a New Release of PeopleTools
+# UPGAPPLY = Apply Application Upgrade
+# DLTAPPLY = Apply Tools Delta Package
+# TDPAPPLY = Apply Translation Delta Package
+# RFUAPPLY = Apply Required for Upgrade Package
+# CPCREATE = Create Change Package
+# EXPCFG = Export configuration
+# IMPCFG = Import configuration
+# IMPCUSTDATA = Import customer data from the data file to the new PUM source
+# EXPCUSTDATA= Export customer data from existing PUM source and save it as a data file
+# UPLDCUSTDATA = Upload customer metadata and test data.
